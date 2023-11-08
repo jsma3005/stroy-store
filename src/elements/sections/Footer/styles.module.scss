@@ -1,0 +1,50 @@
+.root {
+  width: 100%;
+  background: #2F323A;
+  color: #E8E9EA;
+
+  .footer {
+    width: 100%;
+    margin: auto;
+    max-width: 1536px;
+    padding: 5rem 8rem;
+
+    .content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .logo {
+        img {
+          width: 180px;
+          margin-bottom: 1rem;
+        }
+      }
+
+      .categoriesList {
+        li {
+          &:not(:last-child) {
+            margin-bottom: 1rem;
+          }
+        }
+      }
+
+      .contactsList {
+        li {
+          a {
+            display: flex;
+            align-items: center;
+
+            span {
+              margin-left: .5rem;
+            }
+          }
+
+          &:not(:last-child) {
+            margin-bottom: 1rem;
+          }
+        }
+      }
+    }
+  }
+}

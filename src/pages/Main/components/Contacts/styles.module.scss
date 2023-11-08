@@ -1,0 +1,44 @@
+.root {
+  .title {
+    font-weight: 700;
+    font-size: 48px;
+    color: #171B24;
+    margin-bottom: 2.5rem;
+  }
+
+  .mapContainer {
+    display: block;
+    margin-bottom: 5rem;
+
+    .map {
+      width: 100%;
+      height: 340px;
+    }
+  }
+
+  .companyInfo {
+    .title {
+      font-size: 34px;
+      font-weight: 600;
+      color: #2F323A;
+      margin-bottom: 20px;
+    }
+
+    .row {
+      display: flex;
+      gap: 2rem;
+      justify-content: space-between;
+  
+      div {
+        flex: 1;
+  
+        p {
+          font-size: 18px;
+          font-weight: 400;
+          color: #2F323A;
+        }
+      }
+    }
+  }
+
+}

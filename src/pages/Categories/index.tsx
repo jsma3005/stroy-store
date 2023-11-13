@@ -15,7 +15,7 @@ export const CategoriesPage = () => {
   const { id } = useParams()
   const navigate = useNavigate()
 
-  const { cart, onAddToCart } = useProductsCart()
+  const { cart, actions: { onAdd } } = useProductsCart()
 
   const [category, setCategory] = React.useState<CategoryTypes.Item | null>(null)
   const [isLoading, setIsLoading] = React.useState(false)
@@ -107,7 +107,7 @@ export const CategoriesPage = () => {
                     </p>
                     <Button
                       className={cls.cartBtn}
-                      onClick={() => !isProductInCart ? onAddToCart(product) : navigate('/cart')}
+                      onClick={() => !isProductInCart ? onAdd(product) : navigate('/cart')}
                     >{ isProductInCart ? 'Перейти в корзину' : 'Добавить в корзину' }</Button>
                   </div>
                 </div>

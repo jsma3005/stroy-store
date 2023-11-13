@@ -5,11 +5,11 @@ import { useDisclosure } from '@chakra-ui/react'
 import { NotFound } from 'components/NotFound'
 import { Button } from 'components/UI/Button'
 import { PageLayout } from 'elements/layouts/PageLayout'
+import { useProductsCart } from 'hooks/useProductsCart'
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai'
 
 import { OrderModal } from './components/OrderModal'
 import { SuccessModal } from './components/SuccessModal'
-import { useCartPage } from './hooks/useCart'
 import cls from './styles.module.scss'
 
 export const CartPage = () => {
@@ -21,7 +21,7 @@ export const CartPage = () => {
     },
     cart,
     totalPrice,
-  } = useCartPage()
+  } = useProductsCart()
 
   const [isWorking, setIsWorking] = React.useState<boolean | null>(null)
 

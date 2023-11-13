@@ -12,7 +12,7 @@ import cls from './styles.module.scss'
 export const PopularProductsSection = () => {
   const navigate = useNavigate()
 
-  const { cart, onAddToCart } = useProductsCart()
+  const { cart, actions: { onAdd } } = useProductsCart()
 
   const [products, setProducts] = React.useState<ProductTypes.Raw[] | null>(null)
 
@@ -91,7 +91,7 @@ export const PopularProductsSection = () => {
                         </p>
                         <Button
                           className={cls.cartBtn}
-                          onClick={() => !isProductInCart ? onAddToCart(product) : navigate('/cart')}
+                          onClick={() => !isProductInCart ? onAdd(product) : navigate('/cart')}
                         >{ isProductInCart ? 'Перейти в корзину' : 'Добавить в корзину' }</Button>
                       </div>
                     </div>

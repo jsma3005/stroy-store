@@ -17,7 +17,7 @@ const App = () => {
         <Route path="/categories/:id" element={<CategoriesPage />} />
         <Route path="/products/:id" element={<ProductPage />} />
         <Route path="/cart" element={<CartPage />} />
-        <Route path="/wallpapers" element={<WallpapersPage />} />
+        <Route path="/wallpapers/*" element={<WallpapersPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </StackedLayout>

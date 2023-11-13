@@ -1,0 +1,45 @@
+.modal {
+  padding: 2.25rem;
+  border-radius: 0 !important;
+  max-width: 572px !important;
+  width: 100% !important;
+
+  .modalBody {
+    text-align: center;
+    margin: auto;
+
+    .iconContainer {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1rem;
+
+      svg {
+        width: 80px;
+        height: 80px;
+        color: #3BAA35;
+      }
+    }
+
+    h2 {
+      font-size: 48px;
+      font-weight: 700;
+      color: #2F323A;
+      margin-bottom: .5rem;
+    }
+
+    p {
+      font-size: 18px;
+      color: #2F323A;
+    }
+  }
+
+  .modalFooter {
+    display: flex;
+    justify-content: center;
+
+    .btn {
+      width: fit-content;
+    }
+  }
+
+}

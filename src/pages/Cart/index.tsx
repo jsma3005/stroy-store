@@ -1,70 +1,59 @@
 import React from 'react'
 
+import { useDisclosure } from '@chakra-ui/react'
 import { NotFound } from 'components/NotFound'
 import { Button } from 'components/UI/Button'
 import { PageLayout } from 'elements/layouts/PageLayout'
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai'
-import { CartTypes } from 'types/cart'
-import { ProductTypes } from 'types/products'
 
+import { OrderModal } from './components/OrderModal'
+import { SuccessModal } from './components/SuccessModal'
+import { useCartPage } from './hooks/useCart'
 import cls from './styles.module.scss'
 
-function calculateTotalCartPrice (cart: CartTypes.Raw[]): number {
-  return cart.reduce((totalSum, product) => {
-    const price = product.sale_price !== null ? (product.price - product.sale_price) : Number(product.price)
-    return totalSum + price * product.quantity
-  }, 0)
-}
-
 export const CartPage = () => {
-  const cartFromLocalStorage: CartTypes.Raw[] = JSON.parse(localStorage.getItem('cart') as string) || []
+  const {
+    actions: {
+      onDelete,
+      onMinus,
+      onPlus,
+    },
+    cart,
+    totalPrice,
+  } = useCartPage()
 
-  const [cart, setCart] = React.useState<CartTypes.Raw[]>(cartFromLocalStorage)
+  const [isWorking, setIsWorking] = React.useState<boolean | null>(null)
 
-  const [totalPrice, setTotalPrice] = React.useState<number>(calculateTotalCartPrice(cart))
+  const {
+    isOpen: isOpenOrderModal,
+    onClose: onCloseOrderModal,
+    onOpen: onOpenOrderModal,
+  } = useDisclosure()
 
-  const onDelete = React.useCallback((product: ProductTypes.Raw) => {
-    if (!cart) return
-
-    const askDelete = window.confirm('Вы действительно хотите удалить данный товар из корзины?')
-
-    if (!askDelete) return
-
-    const filteredCart = cart.filter(cartProduct => cartProduct.id !== product.id)
-
-    localStorage.setItem('cart', JSON.stringify(filteredCart))
-
-    setCart(filteredCart)
-
-    setTotalPrice(calculateTotalCartPrice(filteredCart))
-  }, [cart])
-
-  const onPlusQuantity = React.useCallback((product: ProductTypes.Raw) => {
-    const changedCart = cart.map(cartProduct =>
-      cartProduct.id === product.id ? { ...cartProduct, quantity: cartProduct.quantity + 1 } : cartProduct,
-    )
-
-    localStorage.setItem('cart', JSON.stringify(changedCart))
-    setCart(changedCart)
-    setTotalPrice(calculateTotalCartPrice(changedCart))
-  }, [cart])
-
-  const onMinusQuantity = React.useCallback((product: ProductTypes.Raw) => {
-    const changedCart = cart.map(cartProduct =>
-      cartProduct.id === product.id && cartProduct.quantity > 1
-        ? { ...cartProduct, quantity: cartProduct.quantity - 1 }
-        : cartProduct,
-    )
-
-    localStorage.setItem('cart', JSON.stringify(changedCart))
-    setCart(changedCart)
-    setTotalPrice(calculateTotalCartPrice(changedCart))
-  }, [cart])
+  const {
+    isOpen: isOpenSuccessModal,
+    onClose: onCloseSuccessModal,
+    onOpen: onOpenSuccessModal,
+  } = useDisclosure()
 
   if (!cart || !cart.length) return <NotFound title="Корзина пуста!" description="Список корзины пуст! Пожалуйста, добавьте товары в корзину, чтобы отобразить их." />
 
   return (
     <PageLayout className={cls.root}>
+      {/* !!! Modals !!! */}
+      <OrderModal
+        isOpen={isOpenOrderModal}
+        onClose={onCloseOrderModal}
+        onOpenSuccessModal={onOpenSuccessModal}
+        setIsWorking={setIsWorking}
+      />
+
+      <SuccessModal
+        isOpen={isOpenSuccessModal}
+        onClose={onCloseSuccessModal}
+        isWorking={isWorking}
+      />
+
       <div
         className={cls.cartHeader}
         style={{
@@ -92,7 +81,7 @@ export const CartPage = () => {
           </div>
 
           <div className={cls.actions}>
-            <Button>Оформить заказ</Button>
+            <Button onClick={onOpenOrderModal}>Оформить заказ</Button>
           </div>
         </div>
 
@@ -136,7 +125,7 @@ export const CartPage = () => {
                   <div className={cls.actions}>
                     <div className={cls.quantityController}>
                       <button
-                        onClick={() => onPlusQuantity(product)}
+                        onClick={() => onPlus(product)}
                       >
                         <AiOutlinePlus
                           width={24}
@@ -145,7 +134,7 @@ export const CartPage = () => {
                       </button>
                       <span>{product.quantity}</span>
                       <button
-                        onClick={() => onMinusQuantity(product)}
+                        onClick={() => onMinus(product)}
                       >
                         <AiOutlineMinus
                           width={24}

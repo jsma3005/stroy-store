@@ -6,4 +6,9 @@
   &:hover {
     background-color: #f7f2b0 !important;
   }
+
+  &:disabled {
+    opacity: .6;
+    cursor: no-drop;
+  }
 }

@@ -9,23 +9,19 @@ import { ProductTypes } from 'types/products'
 
 import cls from './styles.module.scss'
 
-// TODO total price FIX
+function calculateTotalCartPrice (cart: CartTypes.Raw[]): number {
+  return cart.reduce((totalSum, product) => {
+    const price = product.sale_price !== null ? (product.price - product.sale_price) : Number(product.price)
+    return totalSum + price * product.quantity
+  }, 0)
+}
 
 export const CartPage = () => {
-  const cartFromLocalStorage: CartTypes.Raw[] | null = JSON.parse(localStorage.getItem('cart') as string) || null
+  const cartFromLocalStorage: CartTypes.Raw[] = JSON.parse(localStorage.getItem('cart') as string) || []
 
-  const [cart, setCart] = React.useState<CartTypes.Raw[] | null>(cartFromLocalStorage)
-  const [totalPrice, setTotalPrice] = React.useState<number>(() => {
-    if (!cart) return 0
+  const [cart, setCart] = React.useState<CartTypes.Raw[]>(cartFromLocalStorage)
 
-    return (cart.reduce((prev, product) => {
-      if (product.sale_price) {
-        return prev + (product.quantity * (product.price - product.sale_price))
-      }
-
-      return prev + +product.price
-    }, 0))
-  })
+  const [totalPrice, setTotalPrice] = React.useState<number>(calculateTotalCartPrice(cart))
 
   const onDelete = React.useCallback((product: ProductTypes.Raw) => {
     if (!cart) return
@@ -34,57 +30,35 @@ export const CartPage = () => {
 
     if (!askDelete) return
 
-    const filteredCart = cart?.filter(cartProduct => cartProduct.id !== product.id)
+    const filteredCart = cart.filter(cartProduct => cartProduct.id !== product.id)
 
     localStorage.setItem('cart', JSON.stringify(filteredCart))
 
     setCart(filteredCart)
 
-    setTotalPrice((filteredCart.reduce((prev, product) => {
-      if (product.sale_price) {
-        return prev + (product.quantity * (product.price - product.sale_price))
-      }
-
-      return prev + +product.price
-    }, 0)))
+    setTotalPrice(calculateTotalCartPrice(filteredCart))
   }, [cart])
 
   const onPlusQuantity = React.useCallback((product: ProductTypes.Raw) => {
-    const changedCart = cart?.map(cartProduct => {
-      if (cartProduct.id === product.id) {
-        setTotalPrice(prev => prev + (product.sale_percentage ? (product.price - product.sale_price) : +product.price))
-
-        return {
-          ...cartProduct,
-          quantity: cartProduct.quantity + 1,
-        }
-      }
-
-      return cartProduct
-    }) || null
+    const changedCart = cart.map(cartProduct =>
+      cartProduct.id === product.id ? { ...cartProduct, quantity: cartProduct.quantity + 1 } : cartProduct,
+    )
 
     localStorage.setItem('cart', JSON.stringify(changedCart))
     setCart(changedCart)
+    setTotalPrice(calculateTotalCartPrice(changedCart))
   }, [cart])
 
   const onMinusQuantity = React.useCallback((product: ProductTypes.Raw) => {
-    const changedCart = cart?.map(cartProduct => {
-      if (cartProduct.id === product.id) {
-        if (cartProduct.quantity > 1) {
-          setTotalPrice(prev => prev - (product.sale_percentage ? (product.price - product.sale_price) : +product.price))
-
-          return {
-            ...cartProduct,
-            quantity: cartProduct.quantity - 1,
-          }
-        }
-      }
-
-      return cartProduct
-    }) || null
+    const changedCart = cart.map(cartProduct =>
+      cartProduct.id === product.id && cartProduct.quantity > 1
+        ? { ...cartProduct, quantity: cartProduct.quantity - 1 }
+        : cartProduct,
+    )
 
     localStorage.setItem('cart', JSON.stringify(changedCart))
     setCart(changedCart)
+    setTotalPrice(calculateTotalCartPrice(changedCart))
   }, [cart])
 
   if (!cart || !cart.length) return <NotFound title="Корзина пуста!" description="Список корзины пуст! Пожалуйста, добавьте товары в корзину, чтобы отобразить их." />

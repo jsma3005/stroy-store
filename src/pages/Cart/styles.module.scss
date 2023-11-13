@@ -23,13 +23,10 @@
     margin: auto;
     margin-top: 2.5rem;
 
-    .total, .cartProducts {
-      border: 1px solid #E8E9EA;
-    }
-
     .total {
       width: 30%;
       height: fit-content;
+      border: 1px solid #E8E9EA;
 
       .totalContent {
         padding: 1rem;

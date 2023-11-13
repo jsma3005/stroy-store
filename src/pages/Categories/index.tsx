@@ -6,7 +6,7 @@ import { NotFound } from 'components/NotFound'
 import { Button } from 'components/UI/Button'
 import { axiosRequest } from 'configs/api'
 import { PageLayout } from 'elements/layouts/PageLayout'
-import { useCart } from 'hooks/useCart'
+import { useProductsCart } from 'hooks/useProductsCart'
 import { CategoryTypes } from 'types/categories'
 
 import cls from './styles.module.scss'
@@ -15,7 +15,7 @@ export const CategoriesPage = () => {
   const { id } = useParams()
   const navigate = useNavigate()
 
-  const { cart, onAddToCart } = useCart()
+  const { cart, onAddToCart } = useProductsCart()
 
   const [category, setCategory] = React.useState<CategoryTypes.Item | null>(null)
   const [isLoading, setIsLoading] = React.useState(false)

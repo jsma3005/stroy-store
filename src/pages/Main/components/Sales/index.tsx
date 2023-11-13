@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Spinner } from '@chakra-ui/react'
 import { Button } from 'components/UI/Button'
 import { axiosRequest } from 'configs/api'
-import { useCart } from 'hooks/useCart'
+import { useProductsCart } from 'hooks/useProductsCart'
 import { ProductTypes } from 'types/products'
 
 import cls from './styles.module.scss'
@@ -12,7 +12,7 @@ import cls from './styles.module.scss'
 export const SalesSection = () => {
   const navigate = useNavigate()
 
-  const { cart, onAddToCart } = useCart()
+  const { cart, onAddToCart } = useProductsCart()
 
   const [products, setProducts] = React.useState<ProductTypes.Raw[] | null>(null)
 

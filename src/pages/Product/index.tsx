@@ -7,6 +7,8 @@ import { Button } from 'components/UI/Button'
 import { axiosRequest } from 'configs/api'
 import { PageLayout } from 'elements/layouts/PageLayout'
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai'
+import { Navigation } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import { ProductTypes } from 'types/products'
 
 import cls from './styles.module.scss'
@@ -23,8 +25,10 @@ const PageLoader = () => (
 export const ProductPage = () => {
   const { id } = useParams()
 
-  const [isLoading, setIsLoading] = React.useState(false)
   const [product, setProduct] = React.useState<ProductTypes.Raw | null>(null)
+
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [isProductNotFound, setIsProductNotFound] = React.useState<boolean | null>(null)
 
   const getProduct = React.useCallback(async (productId: string) => {
     setIsLoading(true)
@@ -32,9 +36,9 @@ export const ProductPage = () => {
     try {
       const { data } = await axiosRequest.get<ProductTypes.Raw>('/products/' + productId)
 
-      data && setProduct(data)
+      setProduct(data)
     } catch (e: any) {
-      console.log(e)
+      setIsProductNotFound(true)
     } finally {
       setIsLoading(false)
     }
@@ -46,16 +50,38 @@ export const ProductPage = () => {
 
   if (isLoading) return <PageLoader />
 
-  if (!isLoading && !product) return <NotFound title="Страница не найдена!" description="Продукт, который вы ищите не найден!" />
+  if (isProductNotFound) return <NotFound title="Страница не найдена!" description="Продукт, который вы ищите не найден!" />
 
   return (
     <PageLayout className={cls.root}>
       <div className={cls.productCard}>
         <div className={cls.images}>
-          <img
-            src={product?.images[0].image || 'https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png'}
-            alt="Product image"
-          />
+          {
+            product?.images.length
+              ? (
+                <Swiper
+                  slidesPerView={1}
+                  loop
+                  navigation
+                  modules={[Navigation]}
+                >
+                  {
+                    product?.images.map(img => (
+                      <SwiperSlide
+                        key={img.id}
+                        className={cls.swiperSlide}
+                      >
+                        <img
+                          src={img.image}
+                          alt="product image"
+                        />
+                      </SwiperSlide>
+                    ))
+                  }
+                </Swiper>
+              )
+              : <img src="https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png" />
+          }
         </div>
 
         <div className={cls.info}>

@@ -7,6 +7,8 @@ import { Button } from 'components/UI/Button'
 import { axiosRequest } from 'configs/api'
 import { PageLayout } from 'elements/layouts/PageLayout'
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai'
+import { Navigation } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import { WallpaperTypes } from 'types/wallpaper'
 
 import cls from './styles.module.scss'
@@ -25,8 +27,10 @@ export const Wallpaper = () => {
     wallpaperId,
   } = useParams()
 
-  const [isLoading, setIsLoading] = React.useState(false)
   const [wallpaper, setWallpaper] = React.useState<WallpaperTypes.Raw | null>(null)
+
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [isWallpapertNotFound, setIsWallpaperNotFound] = React.useState<boolean | null>(null)
 
   const getProduct = React.useCallback(async (wallpaperId: string) => {
     setIsLoading(true)
@@ -34,9 +38,9 @@ export const Wallpaper = () => {
     try {
       const { data } = await axiosRequest.get<WallpaperTypes.Raw>('/wallpapers/' + wallpaperId)
 
-      data && setWallpaper(data)
+      setWallpaper(data)
     } catch (e: any) {
-      console.log(e)
+      setIsWallpaperNotFound(true)
     } finally {
       setIsLoading(false)
     }
@@ -48,16 +52,38 @@ export const Wallpaper = () => {
 
   if (isLoading) return <PageLoader />
 
-  if (!isLoading && !wallpaper) return <NotFound title="Страница не найдена!" description="Обои, которые вы ищите не найдены!" />
+  if (isWallpapertNotFound) return <NotFound title="Страница не найдена!" description="Обои, которые вы ищите не найдены!" />
 
   return (
     <PageLayout className={cls.root}>
       <div className={cls.productCard}>
         <div className={cls.images}>
-          <img
-            src={wallpaper?.images[0].image || 'https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png'}
-            alt="Wallpaper image"
-          />
+          {
+            wallpaper?.images.length
+              ? (
+                <Swiper
+                  slidesPerView={1}
+                  loop
+                  navigation
+                  modules={[Navigation]}
+                >
+                  {
+                    wallpaper?.images.map(img => (
+                      <SwiperSlide
+                        key={img.id}
+                        className={cls.swiperSlide}
+                      >
+                        <img
+                          src={img.image}
+                          alt="product image"
+                        />
+                      </SwiperSlide>
+                    ))
+                  }
+                </Swiper>
+              )
+              : <img src="https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png" />
+          }
         </div>
 
         <div className={cls.info}>

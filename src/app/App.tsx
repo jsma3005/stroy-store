@@ -9,6 +9,9 @@ import { MainPage } from 'pages/Main'
 import { ProductPage } from 'pages/Product'
 import { WallpapersPage } from 'pages/Wallpapers'
 
+import 'swiper/css'
+import 'swiper/css/navigation'
+
 const App = () => {
   return (
     <StackedLayout>

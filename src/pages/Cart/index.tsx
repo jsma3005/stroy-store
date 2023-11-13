@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import { useDisclosure } from '@chakra-ui/react'
 import { NotFound } from 'components/NotFound'
@@ -106,7 +107,10 @@ export const CartPage = () => {
                 </div>
 
                 <div className={cls.info}>
-                  <p className={cls.title}>{product.title}</p>
+                  <Link
+                    className={cls.title}
+                    to={`/products/${product.id}`}
+                  >{product.title}</Link>
                   <p className={cls.price}>
                     {
                       product.sale_percentage

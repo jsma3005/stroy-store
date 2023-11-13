@@ -77,7 +77,7 @@ export const CategoriesPage = () => {
                   <img
                     src={product.images[0]?.image || 'https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png'}
                     alt={product.title}
-                    onClick={() => navigate(`/products/${category.id}`)}
+                    onClick={() => navigate(`/products/${product.id}`)}
                   />
 
                   {
@@ -88,7 +88,7 @@ export const CategoriesPage = () => {
                 </div>
 
                 <div className={cls.productInfo}>
-                  <Link to="/products/1" className={cls.productTitle}>{product.title}</Link>
+                  <Link to={`/products/${product.id}`} className={cls.productTitle}>{product.title}</Link>
 
                   <div>
                     <p className={cls.price}>

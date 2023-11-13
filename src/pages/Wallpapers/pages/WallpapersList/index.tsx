@@ -84,7 +84,7 @@ export const WallpapersList = () => {
                 </div>
 
                 <div className={cls.productInfo}>
-                  <Link to="/products/1" className={cls.productTitle}>{wallpaper.title}</Link>
+                  <Link to={`/wallpapers/${brandId}/${collectionId}/${wallpaper.id}`} className={cls.productTitle}>{wallpaper.title}</Link>
 
                   <div>
                     <p className={cls.price}>

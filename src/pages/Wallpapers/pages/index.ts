@@ -1,9 +1,11 @@
 import { Brands } from './Brands'
 import { Collections } from './Collections'
-import { Wallpapers } from './Wallpapers'
+import { Wallpaper } from './Wallpaper'
+import { WallpapersList } from './WallpapersList'
 
 export const WallpapersPages = {
   Brands,
   Collections,
-  Wallpapers,
+  WallpapersList,
+  Wallpaper,
 }

@@ -1,0 +1,61 @@
+.root{
+  .title {
+    font-size: 48px;
+    font-weight: 700;
+    color: #171B24;
+    margin-bottom: 2.5rem;
+  }
+
+  .brandsContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 25rem;
+    gap: 1rem;
+    position: relative;
+    padding-top: 2rem;
+
+    .brand {
+      overflow: hidden;
+      position: relative;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: rgb(0 0 0 / 16%) 0 1px 4px;
+
+      &:hover {
+        img {
+          transform: scale(1.05);
+        }
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: .3s;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgb(0 0 0 / 30%); /* Затемненный фон */
+        z-index: 1;
+      }
+
+      .brandTitle {
+        position: absolute;
+        top: 80%;
+        left: 10%;
+        color: #fff; /* Белый цвет текста */
+        font-size: 1.5rem;
+        font-weight: 700;
+        z-index: 2;
+        text-align: center;
+      }
+    }
+
+    .topCard {
+      top: -2rem;
+    }
+  }
+}

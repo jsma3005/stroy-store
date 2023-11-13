@@ -1,18 +1,54 @@
-.header {
+.root {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1.25rem 8rem;
   margin: auto;
+  border-bottom: 1px solid #E8E9EA;
+  border-top: 1px solid #E8E9EA;
   max-width: 1536px;
 
   .logo {
+    width: 10%;
+
     img {
       width: 8rem;
     }
   }
 
+  .categories {
+    text-align: center;
+    width: 80%;
+  
+    .logo {
+      img {
+        width: 8rem;
+      }
+    }
+  
+    .cart {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  
+      svg {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+  
+      span {
+        font-size: 14px;
+      }
+    }
+  
+    a {
+      margin-right: 1.5rem;
+      color: #454950;
+    }
+  }
+
   .cart {
+    width: 10%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -28,15 +64,3 @@
   }
 }
 
-.categories {
-  padding: .75rem;
-  margin: auto;
-  text-align: center;
-  border-bottom: 1px solid #E8E9EA;
-  border-top: 1px solid #E8E9EA;
-
-  a {
-    margin-right: 1.5rem;
-    color: #454950;
-  }
-}

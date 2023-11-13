@@ -33,30 +33,16 @@ export const Header = () => {
   }, [getCategories])
 
   return (
-    <>
-      <div
-        className={cls.header}
+    <div className={cls.root}>
+      <Link
+        to="/"
+        className={cls.logo}
       >
-        <Link
-          to="/"
-          className={cls.logo}
-        >
-          <img
-            src="/assets/logo.png"
-            alt="logo"
-          />
-        </Link>
-
-        <Link
-          to="/cart"
-          className={cls.cart}
-        >
-          <PiShoppingCartLight
-            color="#5D6066"
-          />
-          <span>Корзина</span>
-        </Link>
-      </div>
+        <img
+          src="/assets/logo.png"
+          alt="logo"
+        />
+      </Link>
 
       <div className={cls.categories}>
         {
@@ -85,6 +71,16 @@ export const Header = () => {
         }
 
       </div>
-    </>
+
+      <Link
+        to="/cart"
+        className={cls.cart}
+      >
+        <PiShoppingCartLight
+          color="#5D6066"
+        />
+        <span>Корзина</span>
+      </Link>
+    </div>
   )
 }

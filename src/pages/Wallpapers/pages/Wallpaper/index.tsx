@@ -1,14 +1,15 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { Spinner } from '@chakra-ui/react'
 import { NotFound } from 'components/NotFound'
 import { Button } from 'components/UI/Button'
 import { axiosRequest } from 'configs/api'
 import { PageLayout } from 'elements/layouts/PageLayout'
-import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai'
+import { useWallpapersCart } from 'hooks/useWallpapersCart'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { CartTypes } from 'types/cart'
 import { WallpaperTypes } from 'types/wallpaper'
 
 import cls from './styles.module.scss'
@@ -27,7 +28,18 @@ export const Wallpaper = () => {
     wallpaperId,
   } = useParams()
 
+  const {
+    wallpapersCart,
+    onAddToWallpapersCart,
+  } = useWallpapersCart()
+
+  const navigate = useNavigate()
+
   const [wallpaper, setWallpaper] = React.useState<WallpaperTypes.Raw | null>(null)
+
+  const [wallpaperFromCart, setWallpaperFromCart] = React.useState<CartTypes.Wallpaper | null>(() => {
+    return wallpapersCart.find(cartWallpaper => cartWallpaper.id === Number(wallpaperId)) || null
+  })
 
   const [isLoading, setIsLoading] = React.useState(false)
   const [isWallpapertNotFound, setIsWallpaperNotFound] = React.useState<boolean | null>(null)
@@ -45,6 +57,18 @@ export const Wallpaper = () => {
       setIsLoading(false)
     }
   }, [])
+
+  const onClickAddToCart = () => {
+    if (!wallpaper) return
+
+    if (wallpaperFromCart) return navigate('/cart')
+
+    onAddToWallpapersCart(wallpaper)
+    setWallpaperFromCart({
+      ...wallpaper,
+      quantity: 1,
+    })
+  }
 
   React.useEffect(() => {
     wallpaperId && getProduct(wallpaperId)
@@ -99,9 +123,12 @@ export const Wallpaper = () => {
           </div>
 
           <div className={cls.actions}>
-            <Button className={cls.toCartBtn}>В корзину</Button>
+            <Button
+              className={cls.toCartBtn}
+              onClick={onClickAddToCart}
+            >{ !wallpaperFromCart ? 'В корзину' : 'Перейти в корзину' }</Button>
 
-            <div className={cls.cartSum}>
+            {/* <div className={cls.cartSum}>
               <button>
                 <AiOutlinePlus
                   width={24}
@@ -115,7 +142,7 @@ export const Wallpaper = () => {
                   height={24}
                 />
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

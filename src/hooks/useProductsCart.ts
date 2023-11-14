@@ -71,7 +71,6 @@ export const useProductsCart = () => {
   }, [cart])
 
   return {
-    cartFromLocalStorage,
     cart,
     totalPrice: Math.round(totalPrice),
     actions: {

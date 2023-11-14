@@ -4,9 +4,9 @@ import { CartTypes } from 'types/cart'
 import { WallpaperTypes } from 'types/wallpaper'
 
 export const useWallpapersCart = () => {
-  const cartFromLocalStorage: CartTypes.Wallpaper[] | null = JSON.parse(localStorage.getItem('cart-wallpapers') as string) || null
+  const cartFromLocalStorage: CartTypes.Wallpaper[] = JSON.parse(localStorage.getItem('cart-wallpapers') as string) || []
 
-  const [wallpapersCart, setWallpapersCart] = React.useState<CartTypes.Wallpaper[] | null>(cartFromLocalStorage)
+  const [wallpapersCart, setWallpapersCart] = React.useState<CartTypes.Wallpaper[]>(cartFromLocalStorage)
 
   const onAddToWallpapersCart = React.useCallback((wallpaper: WallpaperTypes.Raw) => {
     const wallpaperToCart = {

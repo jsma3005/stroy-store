@@ -1,14 +1,15 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { Spinner } from '@chakra-ui/react'
 import { NotFound } from 'components/NotFound'
 import { Button } from 'components/UI/Button'
 import { axiosRequest } from 'configs/api'
 import { PageLayout } from 'elements/layouts/PageLayout'
-import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai'
+import { useProductsCart } from 'hooks/useProductsCart'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { CartTypes } from 'types/cart'
 import { ProductTypes } from 'types/products'
 
 import cls from './styles.module.scss'
@@ -25,7 +26,20 @@ const PageLoader = () => (
 export const ProductPage = () => {
   const { id } = useParams()
 
+  const {
+    cart,
+    actions: {
+      onAdd,
+    },
+  } = useProductsCart()
+
+  const navigate = useNavigate()
+
   const [product, setProduct] = React.useState<ProductTypes.Raw | null>(null)
+
+  const [productFromCart, setProductFromCart] = React.useState<CartTypes.Raw | null>(() => {
+    return cart.find(cartProduct => cartProduct.id === Number(id)) || null
+  })
 
   const [isLoading, setIsLoading] = React.useState(false)
   const [isProductNotFound, setIsProductNotFound] = React.useState<boolean | null>(null)
@@ -43,6 +57,18 @@ export const ProductPage = () => {
       setIsLoading(false)
     }
   }, [])
+
+  const onClickAddToCart = () => {
+    if (!product) return
+
+    if (productFromCart) return navigate('/cart')
+
+    onAdd(product)
+    setProductFromCart({
+      ...product,
+      quantity: 1,
+    })
+  }
 
   React.useEffect(() => {
     id && getProduct(id)
@@ -90,23 +116,32 @@ export const ProductPage = () => {
           <p className={cls.price}>{product?.price} СОМ</p>
 
           <div className={cls.actions}>
-            <Button className={cls.toCartBtn}>В корзину</Button>
+            <Button
+              className={cls.toCartBtn}
+              onClick={onClickAddToCart}
+            >{ !productFromCart ? 'В корзину' : 'Перейти в корзину' }</Button>
 
-            <div className={cls.cartSum}>
-              <button>
+            {/* <div className={cls.cartSum}>
+              <button
+                onClick={onClickPlus}
+                disabled={!productFromCart}
+              >
                 <AiOutlinePlus
                   width={24}
                   height={24}
                 />
               </button>
-              <span>1</span>
-              <button>
+              <span>{productFromCart ? productFromCart.quantity : 1}</span>
+              <button
+                onClick={onClickMinus}
+                disabled={!productFromCart}
+              >
                 <AiOutlineMinus
                   width={24}
                   height={24}
                 />
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

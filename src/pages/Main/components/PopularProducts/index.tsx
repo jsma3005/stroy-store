@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Spinner } from '@chakra-ui/react'
 import { Button } from 'components/UI/Button'
 import { axiosRequest } from 'configs/api'
-import { useProductsCart } from 'hooks/useProductsCart'
+import { useCart } from 'hooks/useCart'
 import { ProductTypes } from 'types/products'
 
 import cls from './styles.module.scss'
@@ -12,7 +12,10 @@ import cls from './styles.module.scss'
 export const PopularProductsSection = () => {
   const navigate = useNavigate()
 
-  const { cart, actions: { onAdd } } = useProductsCart()
+  const {
+    productsCart,
+    actions: { onAddToProductsCart },
+  } = useCart()
 
   const [products, setProducts] = React.useState<ProductTypes.Raw[] | null>(null)
 
@@ -50,7 +53,7 @@ export const PopularProductsSection = () => {
           <div className={cls.productContainer}>
             {
               products.map(product => {
-                const isProductInCart = cart?.find(cartProduct => product.id === cartProduct.id)
+                const isProductInCart = productsCart?.find(cartProduct => product.id === cartProduct.id)
 
                 return (
                   <div
@@ -91,7 +94,7 @@ export const PopularProductsSection = () => {
                         </p>
                         <Button
                           className={cls.cartBtn}
-                          onClick={() => !isProductInCart ? onAdd(product) : navigate('/cart')}
+                          onClick={() => !isProductInCart ? onAddToProductsCart(product) : navigate('/cart')}
                         >{ isProductInCart ? 'Перейти в корзину' : 'Добавить в корзину' }</Button>
                       </div>
                     </div>

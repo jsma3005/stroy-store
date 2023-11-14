@@ -34,7 +34,10 @@ export const SalesSection = () => {
   }, [getSaleProducts])
 
   return (
-    <section className={cls.root}>
+    <section
+      className={cls.root}
+      id="sale"
+    >
       <h1 className={cls.title}>Акции</h1>
 
       {

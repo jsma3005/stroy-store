@@ -13,7 +13,7 @@ export const AboutSection = () => {
           backgroundImage: 'url(\'/assets/about-bg.png\')',
         }}
       >
-        <div>
+        <div className={cls.content}>
           <h2 className={cls.title}>О компании</h2>
 
           <p className="mb-3">В СтройкаСтор вы всегда можете купить все необходимые товары для ремонта дома и дачи. Хотите сделать ремонт в квартире? Строите загородный дом? Используйте строительные и отделочные материалы из нашего каталога.</p>

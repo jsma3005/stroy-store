@@ -29,6 +29,13 @@ export const CartPage = () => {
 
   const [isWorking, setIsWorking] = React.useState<boolean | null>(null)
 
+  React.useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }, [])
+
   const {
     isOpen: isOpenOrderModal,
     onClose: onCloseOrderModal,

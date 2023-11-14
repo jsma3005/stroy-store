@@ -1,5 +1,6 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import { Link as ScrollLink } from 'react-scroll'
 
 import { axiosRequest } from 'configs/api'
 import { PiShoppingCartLight } from 'react-icons/pi'
@@ -11,6 +12,8 @@ import cls from './styles.module.scss'
 export const Header = () => {
   const [isLoading, setIsLoading] = React.useState(false)
   const [categories, setCategories] = React.useState<CategoryTypes.Raw[] | null>(null)
+
+  const location = useLocation()
 
   const getCategories = React.useCallback(async () => {
     setIsLoading(true)
@@ -50,12 +53,22 @@ export const Header = () => {
             ? <CategoriesSkeleton />
             : (
               <>
-                <Link
-                  to={{
-                    hash: 'sale',
-                    pathname: '/',
-                  }}
-                >Акции</Link>
+                {
+                  location.pathname === '/'
+                    ? (
+                      <ScrollLink
+                        to="sale"
+                        spy={true}
+                        smooth={true}
+                        offset={-70}
+                        duration={500}
+                      >Акции</ScrollLink>
+                    )
+                    : (
+                      <Link to="/">Акции</Link>
+                    )
+                }
+
                 <Link
                   to="/wallpapers"
                 >Обои</Link>

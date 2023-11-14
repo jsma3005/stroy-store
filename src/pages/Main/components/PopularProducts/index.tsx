@@ -23,7 +23,7 @@ export const PopularProductsSection = () => {
     try {
       const { data } = await axiosRequest.get<ProductTypes.Raw[]>('/products/popular')
 
-      data && setProducts(data.slice(0, 4))
+      data && setProducts(data.slice(0, 8))
     } catch (e: any) {
       console.log(e)
     }
@@ -34,7 +34,10 @@ export const PopularProductsSection = () => {
   }, [getPopularProducts])
 
   return (
-    <section className={cls.root}>
+    <section
+      className={cls.root}
+      id="popular"
+    >
       <h1 className={cls.title}>Популярные товары</h1>
 
       {

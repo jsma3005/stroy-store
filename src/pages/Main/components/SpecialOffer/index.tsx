@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link as ScrollLink } from 'react-scroll'
 
 import { PageLayout } from 'elements/layouts/PageLayout'
 
@@ -24,10 +24,14 @@ export const SpecialOffer = () => {
           </div>
 
           <div>
-            <Link
-              to="/sale"
+            <ScrollLink
+              to="popular"
+              spy={true}
+              smooth={true}
+              offset={-70}
+              duration={500}
               className={cls.moreBtn}
-            >Подробнее</Link>
+            >Подробнее</ScrollLink>
           </div>
         </div>
       </div>

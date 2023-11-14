@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { Link as ScrollLink } from 'react-scroll'
 
 import { FaLocationDot } from 'react-icons/fa6'
 import { FiMail } from 'react-icons/fi'
@@ -24,18 +25,22 @@ export const Footer = () => {
           <ul className={cls.categoriesList}>
             <li>
               <Link
-                to="/"
+                to="/cart"
               >
                 Корзина
               </Link>
             </li>
 
             <li>
-              <Link
-                to="/"
+              <ScrollLink
+                to="sale"
+                spy={true}
+                smooth={true}
+                offset={-70}
+                duration={500}
               >
                 Каталог
-              </Link>
+              </ScrollLink>
             </li>
 
             <li>

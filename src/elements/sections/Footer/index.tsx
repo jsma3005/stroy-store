@@ -16,7 +16,7 @@ export const Footer = () => {
             className={cls.logo}
           >
             <img
-              src="/assets/logo-white.png"
+              src="assets/logo-white.png"
               alt="logo"
             />
           </Link>

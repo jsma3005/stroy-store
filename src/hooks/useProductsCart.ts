@@ -3,19 +3,12 @@ import React from 'react'
 import { CartTypes } from 'types/cart'
 import { ProductTypes } from 'types/products'
 
-function calculateTotalCartPrice (cart: CartTypes.Raw[]): number {
-  return cart.reduce((totalSum, product) => {
-    const price = product.sale_price !== null ? (product.price - product.sale_price) : Number(product.price)
-    return totalSum + price * product.quantity
-  }, 0)
-}
-
 export const useProductsCart = () => {
-  const cartFromLocalStorage: CartTypes.Raw[] = JSON.parse(localStorage.getItem('cart') as string) || []
+  const cartFromLocalStorage: CartTypes.Product[] = JSON.parse(localStorage.getItem('cart') as string) || []
 
-  const [cart, setCart] = React.useState<CartTypes.Raw[]>(cartFromLocalStorage)
+  const [cart, setCart] = React.useState<CartTypes.Product[]>(cartFromLocalStorage)
 
-  const [totalPrice, setTotalPrice] = React.useState<number>(calculateTotalCartPrice(cart))
+  const [totalPrice, setTotalPrice] = React.useState<number>(0)
 
   const onAddToCart = React.useCallback((product: ProductTypes.Raw) => {
     const productToCart = {
@@ -23,14 +16,14 @@ export const useProductsCart = () => {
       quantity: 1,
     }
 
-    if (!cart) {
-      localStorage.setItem('cart', JSON.stringify([productToCart]))
-      setCart([productToCart])
-    } else {
-      localStorage.setItem('cart', JSON.stringify([...cart, productToCart]))
-      setCart([...cart, productToCart])
-    }
-  }, [cart])
+    // if (!cart) {
+    //   localStorage.setItem('cart', JSON.stringify([productToCart]))
+    //   setCart([productToCart])
+    // } else {
+    //   localStorage.setItem('cart', JSON.stringify([...cart, productToCart]))
+    //   setCart([...cart, productToCart])
+    // }
+  }, [])
 
   const onDelete = React.useCallback((product: ProductTypes.Raw) => {
     if (!cart) return
@@ -44,8 +37,6 @@ export const useProductsCart = () => {
     localStorage.setItem('cart', JSON.stringify(filteredCart))
 
     setCart(filteredCart)
-
-    setTotalPrice(calculateTotalCartPrice(filteredCart))
   }, [cart])
 
   const onPlusQuantity = React.useCallback((product: ProductTypes.Raw) => {
@@ -55,7 +46,6 @@ export const useProductsCart = () => {
 
     localStorage.setItem('cart', JSON.stringify(changedCart))
     setCart(changedCart)
-    setTotalPrice(calculateTotalCartPrice(changedCart))
   }, [cart])
 
   const onMinusQuantity = React.useCallback((product: ProductTypes.Raw) => {
@@ -67,7 +57,6 @@ export const useProductsCart = () => {
 
     localStorage.setItem('cart', JSON.stringify(changedCart))
     setCart(changedCart)
-    setTotalPrice(calculateTotalCartPrice(changedCart))
   }, [cart])
 
   return {

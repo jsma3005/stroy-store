@@ -6,6 +6,7 @@ import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHea
 import { Button } from 'components/UI/Button'
 import Input from 'components/UI/Input'
 import { axiosRequest } from 'configs/api'
+import { useCart } from 'hooks/useCart'
 import { CartTypes } from 'types/cart'
 
 import cls from './styles.module.scss'
@@ -22,7 +23,7 @@ interface Form {
   last_name: string
   phone_number: string
   email: string
-  purchases: CartTypes.Raw[]
+  purchases: CartTypes.Product[]
 }
 
 const required = 'Обязательное поле'
@@ -44,11 +45,25 @@ export const OrderModal = ({
     reset,
   } = useForm<Form>()
 
+  const {
+    wallpapersCart,
+    productsCart,
+  } = useCart()
+
   const [isLoading, setIsLoading] = React.useState(false)
 
   const onSubmit = React.useCallback(async (body: Form) => {
-    const cart: CartTypes.Raw[] = JSON.parse(localStorage.getItem('cart') as string) || []
+    const cart = [...wallpapersCart, ...productsCart]
+
+    const purchases = cart.map(good => ({
+      quantity: good.quantity,
+      product: good.type === 'product' ? good.id : null,
+      wallpaper: good.type === 'wallpaper' ? good.id : null,
+    }))
+
     setIsLoading(true)
+
+    console.log(purchases)
 
     try {
       const { data } = await axiosRequest.post<{
@@ -56,11 +71,7 @@ export const OrderModal = ({
         is_working: boolean
       }>('/orders/', {
         ...body,
-        purchases: cart.map(product => ({
-          product: product.id,
-          quantity: product.quantity,
-          wallpaper: null,
-        })),
+        purchases,
       })
 
       setIsWorking(data.is_working)
@@ -82,7 +93,7 @@ export const OrderModal = ({
     } finally {
       setIsLoading(false)
     }
-  }, [onClose, onOpenSuccessModal, reset, setIsWorking])
+  }, [onClose, onOpenSuccessModal, productsCart, reset, setIsWorking, wallpapersCart])
 
   return (
     <Modal

@@ -4,9 +4,8 @@ export namespace ProductTypes {
     category: number
     title: string
     description: string
-    price: number
+    price: string
     sale_percentage: number
-    img: string
     sale_price: number
     created_at: Date
     images: {

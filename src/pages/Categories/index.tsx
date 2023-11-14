@@ -6,7 +6,7 @@ import { NotFound } from 'components/NotFound'
 import { Button } from 'components/UI/Button'
 import { axiosRequest } from 'configs/api'
 import { PageLayout } from 'elements/layouts/PageLayout'
-import { useProductsCart } from 'hooks/useProductsCart'
+import { useCart } from 'hooks/useCart'
 import { CategoryTypes } from 'types/categories'
 
 import cls from './styles.module.scss'
@@ -15,7 +15,12 @@ export const CategoriesPage = () => {
   const { id } = useParams()
   const navigate = useNavigate()
 
-  const { cart, actions: { onAdd } } = useProductsCart()
+  const {
+    productsCart,
+    actions: {
+      onAddToProductsCart,
+    },
+  } = useCart()
 
   const [category, setCategory] = React.useState<CategoryTypes.Item | null>(null)
   const [isLoading, setIsLoading] = React.useState(false)
@@ -66,7 +71,7 @@ export const CategoriesPage = () => {
       <div className={cls.productContainer}>
         {
           category.products.map(product => {
-            const isProductInCart = cart?.find(cartProduct => product.id === cartProduct.id)
+            const isProductInCart = productsCart.find(cartProduct => product.id === cartProduct.id)
 
             return (
               <div
@@ -96,7 +101,7 @@ export const CategoriesPage = () => {
                         product.sale_percentage
                           ? (
                             <>
-                              <span className={cls.salesPrice}>{product.price - product.sale_price} СОМ</span>
+                              <span className={cls.salesPrice}>{Number(product.price) - product.sale_price} СОМ</span>
                               <span className={cls.realPrice}>{product.price} СОМ</span>
                             </>
                           )
@@ -107,7 +112,7 @@ export const CategoriesPage = () => {
                     </p>
                     <Button
                       className={cls.cartBtn}
-                      onClick={() => !isProductInCart ? onAdd(product) : navigate('/cart')}
+                      onClick={() => !isProductInCart ? onAddToProductsCart(product) : navigate('/cart')}
                     >{ isProductInCart ? 'Перейти в корзину' : 'Добавить в корзину' }</Button>
                   </div>
                 </div>

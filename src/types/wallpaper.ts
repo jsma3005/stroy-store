@@ -18,9 +18,9 @@ export namespace WallpaperTypes {
     article: number
     collection: Collection
     title: string
+    price: string
     description: string
     size: string
-    price: string
     images: {
       id: number
       image: string

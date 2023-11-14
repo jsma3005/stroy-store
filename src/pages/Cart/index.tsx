@@ -2,11 +2,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import { useDisclosure } from '@chakra-ui/react'
-import { NotFound } from 'components/NotFound'
 import { Button } from 'components/UI/Button'
 import { PageLayout } from 'elements/layouts/PageLayout'
-import { useProductsCart } from 'hooks/useProductsCart'
+import { useCart } from 'hooks/useCart'
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai'
+import { CartTypes } from 'types/cart'
 
 import { OrderModal } from './components/OrderModal'
 import { SuccessModal } from './components/SuccessModal'
@@ -14,14 +14,18 @@ import cls from './styles.module.scss'
 
 export const CartPage = () => {
   const {
-    actions: {
-      onDelete,
-      onMinus,
-      onPlus,
-    },
-    cart,
+    productsCart,
+    wallpapersCart,
     totalPrice,
-  } = useProductsCart()
+    actions: {
+      onMinusProduct,
+      onMinusWallpaper,
+      onPlusProduct,
+      onPlusWallpaper,
+      onDeleteProduct,
+      onDeleteWallpaper,
+    },
+  } = useCart()
 
   const [isWorking, setIsWorking] = React.useState<boolean | null>(null)
 
@@ -36,8 +40,6 @@ export const CartPage = () => {
     onClose: onCloseSuccessModal,
     onOpen: onOpenSuccessModal,
   } = useDisclosure()
-
-  if (!cart || !cart.length) return <NotFound title="Корзина пуста!" description="Список корзины пуст! Пожалуйста, добавьте товары в корзину, чтобы отобразить их." />
 
   return (
     <PageLayout className={cls.root}>
@@ -71,8 +73,8 @@ export const CartPage = () => {
 
             <ul>
               <li>
-                <span>Количество товаров</span>
-                <span>{cart.length} шт.</span>
+                <span>Количество продуктов</span>
+                <span>{productsCart.length + wallpapersCart.length} шт.</span>
               </li>
               <li>
                 <span>Товаров на сумму</span>
@@ -82,13 +84,18 @@ export const CartPage = () => {
           </div>
 
           <div className={cls.actions}>
-            <Button onClick={onOpenOrderModal}>Оформить заказ</Button>
+            <Button
+              onClick={onOpenOrderModal}
+              disabled={!(productsCart.length + productsCart.length)}
+            >Оформить заказ</Button>
           </div>
         </div>
 
         <div className={cls.cartProducts}>
+          { !(productsCart.length + productsCart.length) && <h2 className={cls.emptyCart}>Ваша корзина пуста!</h2> }
+
           {
-            cart.map(product => (
+            productsCart.map(product => (
               <div
                 key={product.id}
                 className={cls.product}
@@ -116,7 +123,7 @@ export const CartPage = () => {
                       product.sale_percentage
                         ? (
                           <>
-                            <span className={cls.salesPrice}>{(product.price - product.sale_price)} СОМ</span>
+                            <span className={cls.salesPrice}>{(Number(product.price) - product.sale_price)} СОМ</span>
                             <span className={cls.realPrice}>{product.price} СОМ</span>
                           </>
                         )
@@ -129,7 +136,7 @@ export const CartPage = () => {
                   <div className={cls.actions}>
                     <div className={cls.quantityController}>
                       <button
-                        onClick={() => onPlus(product)}
+                        onClick={() => onPlusProduct(product as CartTypes.Product)}
                       >
                         <AiOutlinePlus
                           width={24}
@@ -138,7 +145,7 @@ export const CartPage = () => {
                       </button>
                       <span>{product.quantity}</span>
                       <button
-                        onClick={() => onMinus(product)}
+                        onClick={() => onMinusProduct(product as CartTypes.Product)}
                       >
                         <AiOutlineMinus
                           width={24}
@@ -148,7 +155,58 @@ export const CartPage = () => {
                     </div>
 
                     <div className={cls.delete}>
-                      <button onClick={() => onDelete(product)}>Удалить товар</button>
+                      <button onClick={() => onDeleteProduct(product as CartTypes.Product)}>Удалить товар</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+          {
+            wallpapersCart.map(product => (
+              <div
+                key={product.id}
+                className={cls.product}
+              >
+                <div className={cls.productImage}>
+                  <img
+                    src={product.images[0]?.image || 'https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png'}
+                    alt={product.title}
+                  />
+                </div>
+
+                <div className={cls.info}>
+                  <Link
+                    className={cls.title}
+                    to={`/products/${product.id}`}
+                  >{product.title}</Link>
+                  <p className={cls.price}>
+                    <span>{product.price} СОМ</span>
+                  </p>
+
+                  <div className={cls.actions}>
+                    <div className={cls.quantityController}>
+                      <button
+                        onClick={() => onPlusWallpaper(product as CartTypes.Wallpaper)}
+                      >
+                        <AiOutlinePlus
+                          width={24}
+                          height={24}
+                        />
+                      </button>
+                      <span>{product.quantity}</span>
+                      <button
+                        onClick={() => onMinusWallpaper(product as CartTypes.Wallpaper)}
+                      >
+                        <AiOutlineMinus
+                          width={24}
+                          height={24}
+                        />
+                      </button>
+                    </div>
+
+                    <div className={cls.delete}>
+                      <button onClick={() => onDeleteWallpaper(product as CartTypes.Wallpaper)}>Удалить товар</button>
                     </div>
                   </div>
                 </div>

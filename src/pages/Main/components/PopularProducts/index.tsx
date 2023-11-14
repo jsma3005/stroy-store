@@ -80,7 +80,7 @@ export const PopularProductsSection = () => {
                             product.sale_percentage
                               ? (
                                 <>
-                                  <span className={cls.salesPrice}>{(product.price - product.sale_price)} СОМ</span>
+                                  <span className={cls.salesPrice}>{(Number(product.price) - product.sale_price)} СОМ</span>
                                   <span className={cls.realPrice}>{product.price} СОМ</span>
                                 </>
                               )

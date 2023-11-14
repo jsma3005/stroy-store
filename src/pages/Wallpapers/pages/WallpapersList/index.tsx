@@ -5,7 +5,7 @@ import { Spinner } from '@chakra-ui/react'
 import { NotFound } from 'components/NotFound'
 import { Button } from 'components/UI/Button'
 import { axiosRequest } from 'configs/api'
-import { useWallpapersCart } from 'hooks/useWallpapersCart'
+import { useCart } from 'hooks/useCart'
 import { WallpaperTypes } from 'types/wallpaper'
 
 import cls from './styles.module.scss'
@@ -17,9 +17,11 @@ export const WallpapersList = () => {
   } = useParams()
 
   const {
-    onAddToWallpapersCart,
     wallpapersCart,
-  } = useWallpapersCart()
+    actions: {
+      onAddToWallpapersCart,
+    },
+  } = useCart()
 
   const [collectionTitle, setCollectionTitle] = React.useState('')
 
@@ -68,7 +70,7 @@ export const WallpapersList = () => {
       <div className={cls.productContainer}>
         {
           wallpapers.map(wallpaper => {
-            const isWallpaperInCart = wallpapersCart?.find(cartWallpaper => wallpaper.id === cartWallpaper.id)
+            const isWallpaperInCart = wallpapersCart.find(good => good.id === wallpaper.id)
 
             return (
               <div

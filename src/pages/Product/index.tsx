@@ -6,7 +6,8 @@ import { NotFound } from 'components/NotFound'
 import { Button } from 'components/UI/Button'
 import { axiosRequest } from 'configs/api'
 import { PageLayout } from 'elements/layouts/PageLayout'
-import { useProductsCart } from 'hooks/useProductsCart'
+import { useCart } from 'hooks/useCart'
+import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { CartTypes } from 'types/cart'
@@ -27,22 +28,26 @@ export const ProductPage = () => {
   const { id } = useParams()
 
   const {
-    cart,
     actions: {
-      onAdd,
+      onAddToProductsCart,
+      onPlusProduct,
+      onMinusProduct,
     },
-  } = useProductsCart()
+    productsCart,
+  } = useCart()
 
   const navigate = useNavigate()
 
   const [product, setProduct] = React.useState<ProductTypes.Raw | null>(null)
 
-  const [productFromCart, setProductFromCart] = React.useState<CartTypes.Raw | null>(() => {
-    return cart.find(cartProduct => cartProduct.id === Number(id)) || null
-  })
+  const [productFromCart, setProductFromCart] = React.useState<CartTypes.Product | null>(null)
 
   const [isLoading, setIsLoading] = React.useState(false)
   const [isProductNotFound, setIsProductNotFound] = React.useState<boolean | null>(null)
+
+  React.useEffect(() => {
+    setProductFromCart(() => productsCart.find(product => product.id === Number(id)) as CartTypes.Product || null)
+  }, [id, productsCart])
 
   const getProduct = React.useCallback(async (productId: string) => {
     setIsLoading(true)
@@ -63,11 +68,28 @@ export const ProductPage = () => {
 
     if (productFromCart) return navigate('/cart')
 
-    onAdd(product)
+    onAddToProductsCart(product)
     setProductFromCart({
       ...product,
       quantity: 1,
+      type: 'product',
     })
+  }
+
+  const onClickPlus = () => {
+    if (!product) return
+
+    if (!productFromCart) return
+
+    onPlusProduct(product)
+  }
+
+  const onClickMinus = () => {
+    if (!product) return
+
+    if (!productFromCart) return
+
+    onMinusProduct(product)
   }
 
   React.useEffect(() => {
@@ -121,10 +143,10 @@ export const ProductPage = () => {
               onClick={onClickAddToCart}
             >{ !productFromCart ? 'В корзину' : 'Перейти в корзину' }</Button>
 
-            {/* <div className={cls.cartSum}>
+            <div className={cls.cartSum}>
               <button
-                onClick={onClickPlus}
                 disabled={!productFromCart}
+                onClick={onClickPlus}
               >
                 <AiOutlinePlus
                   width={24}
@@ -133,15 +155,15 @@ export const ProductPage = () => {
               </button>
               <span>{productFromCart ? productFromCart.quantity : 1}</span>
               <button
-                onClick={onClickMinus}
                 disabled={!productFromCart}
+                onClick={onClickMinus}
               >
                 <AiOutlineMinus
                   width={24}
                   height={24}
                 />
               </button>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>

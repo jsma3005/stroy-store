@@ -6,7 +6,8 @@ import { NotFound } from 'components/NotFound'
 import { Button } from 'components/UI/Button'
 import { axiosRequest } from 'configs/api'
 import { PageLayout } from 'elements/layouts/PageLayout'
-import { useWallpapersCart } from 'hooks/useWallpapersCart'
+import { useCart } from 'hooks/useCart'
+import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { CartTypes } from 'types/cart'
@@ -29,20 +30,26 @@ export const Wallpaper = () => {
   } = useParams()
 
   const {
+    actions: {
+      onAddToWallpapersCart,
+      onPlusWallpaper,
+      onMinusWallpaper,
+    },
     wallpapersCart,
-    onAddToWallpapersCart,
-  } = useWallpapersCart()
+  } = useCart()
 
   const navigate = useNavigate()
 
   const [wallpaper, setWallpaper] = React.useState<WallpaperTypes.Raw | null>(null)
 
-  const [wallpaperFromCart, setWallpaperFromCart] = React.useState<CartTypes.Wallpaper | null>(() => {
-    return wallpapersCart.find(cartWallpaper => cartWallpaper.id === Number(wallpaperId)) || null
-  })
+  const [wallpaperFromCart, setWallpaperFromCart] = React.useState<CartTypes.Wallpaper | null>(null)
 
   const [isLoading, setIsLoading] = React.useState(false)
   const [isWallpapertNotFound, setIsWallpaperNotFound] = React.useState<boolean | null>(null)
+
+  React.useEffect(() => {
+    setWallpaperFromCart(() => wallpapersCart.find(cartWallpaper => cartWallpaper.id === Number(wallpaperId)) as CartTypes.Wallpaper || null)
+  }, [wallpaperId, wallpapersCart])
 
   const getProduct = React.useCallback(async (wallpaperId: string) => {
     setIsLoading(true)
@@ -67,7 +74,24 @@ export const Wallpaper = () => {
     setWallpaperFromCart({
       ...wallpaper,
       quantity: 1,
+      type: 'product',
     })
+  }
+
+  const onClickPlus = () => {
+    if (!wallpaper) return
+
+    if (!wallpaperFromCart) return
+
+    onPlusWallpaper(wallpaper)
+  }
+
+  const onClickMinus = () => {
+    if (!wallpaper) return
+
+    if (!wallpaperFromCart) return
+
+    onMinusWallpaper(wallpaper)
   }
 
   React.useEffect(() => {
@@ -128,21 +152,27 @@ export const Wallpaper = () => {
               onClick={onClickAddToCart}
             >{ !wallpaperFromCart ? 'В корзину' : 'Перейти в корзину' }</Button>
 
-            {/* <div className={cls.cartSum}>
-              <button>
+            <div className={cls.cartSum}>
+              <button
+                disabled={!wallpaperFromCart}
+                onClick={onClickPlus}
+              >
                 <AiOutlinePlus
                   width={24}
                   height={24}
                 />
               </button>
-              <span>1</span>
-              <button>
+              <span>{wallpaperFromCart ? wallpaperFromCart.quantity : 1}</span>
+              <button
+                disabled={!wallpaperFromCart}
+                onClick={onClickMinus}
+              >
                 <AiOutlineMinus
                   width={24}
                   height={24}
                 />
               </button>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>

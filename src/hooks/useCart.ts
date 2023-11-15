@@ -131,6 +131,17 @@ export const useCart = () => {
     cartState.wallpapersCart = filteredCart
   }, [wallpapersCart])
 
+  const resetCart = React.useCallback(() => {
+    const askReset = window.confirm('Вы действительно хотите очистить корзину?')
+
+    if (!askReset) return
+
+    localStorage.removeItem(LocalStorage.PRODUCTS_CART)
+    localStorage.removeItem(LocalStorage.WALLPAPERS_CART)
+    cartState.productsCart = []
+    cartState.wallpapersCart = []
+  }, [])
+
   React.useEffect(() => {
     cartState.totalPrice = productsTotalPrice + wallpapersTotalPrice
   }, [productsTotalPrice, wallpapersTotalPrice])
@@ -150,6 +161,7 @@ export const useCart = () => {
       onMinusWallpaper,
       onDeleteWallpaper,
       onDeleteProduct,
+      resetCart,
     },
   }
 }

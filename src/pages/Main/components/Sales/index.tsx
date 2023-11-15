@@ -17,13 +17,13 @@ export const SalesSection = () => {
     actions: { onAddToProductsCart },
   } = useCart()
 
-  const [products, setProducts] = React.useState<ProductTypes.Raw[] | null>(null)
+  const [sales, setSales] = React.useState<ProductTypes.Sale[] | null>(null)
 
   const getSaleProducts = React.useCallback(async () => {
     try {
-      const { data } = await axiosRequest.get<ProductTypes.Raw[]>('/products/sales')
+      const { data } = await axiosRequest.get<ProductTypes.Sale[]>('/stocks/')
 
-      data && setProducts(data.slice(0, 4))
+      data && setSales(data.slice(0, 4))
     } catch (e: any) {
       console.log(e)
     }
@@ -33,6 +33,8 @@ export const SalesSection = () => {
     getSaleProducts()
   }, [getSaleProducts])
 
+  console.log(sales)
+
   return (
     <section
       className={cls.root}
@@ -41,7 +43,7 @@ export const SalesSection = () => {
       <h1 className={cls.title}>Акции</h1>
 
       {
-        !products && (
+        !sales && (
           <div className="flex items-center justify-center p-10">
             <Spinner
               color="red.500"
@@ -52,10 +54,11 @@ export const SalesSection = () => {
       }
 
       {
-        products && (
+        sales && (
           <div className={cls.salesContainer}>
             {
-              products.map(product => {
+              sales.map(sale => {
+                const product = sale.product
                 const isProductInCart = productsCart?.find(cartProduct => product.id === cartProduct.id)
 
                 return (
@@ -71,8 +74,8 @@ export const SalesSection = () => {
                       />
 
                       {
-                        product.sale_percentage && (
-                          <div className={cls.salePercentage}>-{product.sale_percentage}%</div>
+                        sale.persent && (
+                          <div className={cls.salePercentage}>-{sale.persent}%</div>
                         )
                       }
                     </div>
@@ -82,7 +85,7 @@ export const SalesSection = () => {
 
                       <div>
                         <p className={cls.price}>
-                          <span>{(Number(product.price) - product.sale_price)} СОМ</span>
+                          <span>{(Number(product.price) - sale.interest_amount)} СОМ</span>
                           <span>{product.price} CОМ</span>
                         </p>
 

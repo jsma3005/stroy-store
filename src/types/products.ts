@@ -13,4 +13,11 @@ export namespace ProductTypes {
       image: string
     }[]
   }
+
+  export interface Sale {
+    id: number
+    product: Raw
+    persent: number
+    interest_amount: number
+  }
 }

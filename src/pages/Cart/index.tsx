@@ -24,6 +24,7 @@ export const CartPage = () => {
       onPlusWallpaper,
       onDeleteProduct,
       onDeleteWallpaper,
+      resetCart,
     },
   } = useCart()
 
@@ -95,6 +96,13 @@ export const CartPage = () => {
               onClick={onOpenOrderModal}
               disabled={!(productsCart.length + productsCart.length)}
             >Оформить заказ</Button>
+
+            <Button
+              onClick={resetCart}
+              disabled={!(productsCart.length + productsCart.length)}
+            >
+              Очистить корзину
+            </Button>
           </div>
         </div>
 

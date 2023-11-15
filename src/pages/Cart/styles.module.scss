@@ -59,6 +59,18 @@
       .actions {
         border-top: 1px solid #E8E9EA;
         padding: 1rem;
+
+        button {
+          &:last-child {
+            margin-top: .5rem;
+            background: #f33 !important;
+            color: #fff;
+            
+            &:hover {
+              opacity: .7;
+            }
+          }
+        }
       }
     }
 

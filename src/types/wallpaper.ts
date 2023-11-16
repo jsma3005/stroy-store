@@ -8,6 +8,7 @@ export namespace WallpaperTypes {
 
   export interface Collection {
     id: number
+    brand: number
     title: string
     image: string
     wallpapers: Raw[]

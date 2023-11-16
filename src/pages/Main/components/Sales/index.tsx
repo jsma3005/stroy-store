@@ -23,7 +23,7 @@ export const SalesSection = () => {
     try {
       const { data } = await axiosRequest.get<ProductTypes.Sale[]>('/stocks/')
 
-      data && setSales(data.slice(0, 4))
+      data && setSales(data.slice(0, 6))
     } catch (e: any) {
       console.log(e)
     }

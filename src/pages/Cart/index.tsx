@@ -94,12 +94,12 @@ export const CartPage = () => {
           <div className={cls.actions}>
             <Button
               onClick={onOpenOrderModal}
-              disabled={!(productsCart.length + productsCart.length)}
+              disabled={!(wallpapersCart.length + productsCart.length)}
             >Оформить заказ</Button>
 
             <Button
               onClick={resetCart}
-              disabled={!(productsCart.length + productsCart.length)}
+              disabled={!(wallpapersCart.length + productsCart.length)}
             >
               Очистить корзину
             </Button>
@@ -107,7 +107,7 @@ export const CartPage = () => {
         </div>
 
         <div className={cls.cartProducts}>
-          { !(productsCart.length + productsCart.length) && <h2 className={cls.emptyCart}>Ваша корзина пуста!</h2> }
+          { !(productsCart.length + wallpapersCart.length) && <h2 className={cls.emptyCart}>Ваша корзина пуста!</h2> }
 
           {
             productsCart.map(product => (
@@ -178,40 +178,40 @@ export const CartPage = () => {
             ))
           }
           {
-            wallpapersCart.map(product => (
+            wallpapersCart.map(wallpaper => (
               <div
-                key={product.id}
+                key={wallpaper.id}
                 className={cls.product}
               >
                 <div className={cls.productImage}>
                   <img
-                    src={product.images[0]?.image || 'https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png'}
-                    alt={product.title}
+                    src={wallpaper.images[0]?.image || 'https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png'}
+                    alt={wallpaper.title}
                   />
                 </div>
 
                 <div className={cls.info}>
                   <Link
                     className={cls.title}
-                    to={`/products/${product.id}`}
-                  >{product.title}</Link>
+                    to={`/wallpapers/${wallpaper.collection.brand}/${wallpaper.collection.id}/${wallpaper.id}`}
+                  >{wallpaper.title}</Link>
                   <p className={cls.price}>
-                    <span>{product.price} СОМ</span>
+                    <span>{wallpaper.price} СОМ</span>
                   </p>
 
                   <div className={cls.actions}>
                     <div className={cls.quantityController}>
                       <button
-                        onClick={() => onPlusWallpaper(product as CartTypes.Wallpaper)}
+                        onClick={() => onPlusWallpaper(wallpaper as CartTypes.Wallpaper)}
                       >
                         <AiOutlinePlus
                           width={24}
                           height={24}
                         />
                       </button>
-                      <span>{product.quantity}</span>
+                      <span>{wallpaper.quantity}</span>
                       <button
-                        onClick={() => onMinusWallpaper(product as CartTypes.Wallpaper)}
+                        onClick={() => onMinusWallpaper(wallpaper as CartTypes.Wallpaper)}
                       >
                         <AiOutlineMinus
                           width={24}
@@ -221,7 +221,7 @@ export const CartPage = () => {
                     </div>
 
                     <div className={cls.delete}>
-                      <button onClick={() => onDeleteWallpaper(product as CartTypes.Wallpaper)}>Удалить товар</button>
+                      <button onClick={() => onDeleteWallpaper(wallpaper as CartTypes.Wallpaper)}>Удалить товар</button>
                     </div>
                   </div>
                 </div>

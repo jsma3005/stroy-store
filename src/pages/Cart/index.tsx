@@ -37,6 +37,14 @@ export const CartPage = () => {
     })
   }, [])
 
+  const onResetCart = () => {
+    const askReset = window.confirm('Вы действительно хотите очистить корзину?')
+
+    if (!askReset) return
+
+    resetCart()
+  }
+
   const {
     isOpen: isOpenOrderModal,
     onClose: onCloseOrderModal,
@@ -98,7 +106,7 @@ export const CartPage = () => {
             >Оформить заказ</Button>
 
             <Button
-              onClick={resetCart}
+              onClick={onResetCart}
               disabled={!(wallpapersCart.length + productsCart.length)}
             >
               Очистить корзину

@@ -132,10 +132,6 @@ export const useCart = () => {
   }, [wallpapersCart])
 
   const resetCart = React.useCallback(() => {
-    const askReset = window.confirm('Вы действительно хотите очистить корзину?')
-
-    if (!askReset) return
-
     localStorage.removeItem(LocalStorage.PRODUCTS_CART)
     localStorage.removeItem(LocalStorage.WALLPAPERS_CART)
     cartState.productsCart = []

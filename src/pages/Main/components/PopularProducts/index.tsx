@@ -78,7 +78,7 @@ export const PopularProductsSection = () => {
                     </div>
 
                     <div className={cls.productInfo}>
-                      <Link to="/products/1" className={cls.productTitle}>{product.title}</Link>
+                      <Link to={`/products/${product.id}`} className={cls.productTitle}>{product.title}</Link>
 
                       <div>
                         <p className={cls.price}>

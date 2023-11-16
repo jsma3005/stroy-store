@@ -48,6 +48,9 @@ export const OrderModal = ({
   const {
     wallpapersCart,
     productsCart,
+    actions: {
+      resetCart,
+    },
   } = useCart()
 
   const [isLoading, setIsLoading] = React.useState(false)
@@ -62,8 +65,6 @@ export const OrderModal = ({
     }))
 
     setIsLoading(true)
-
-    console.log(purchases)
 
     try {
       const { data } = await axiosRequest.post<{
@@ -85,7 +86,7 @@ export const OrderModal = ({
         phone_number: '',
       })
 
-      localStorage.removeItem('cart')
+      resetCart()
 
       onClose()
     } catch (e) {
@@ -93,7 +94,7 @@ export const OrderModal = ({
     } finally {
       setIsLoading(false)
     }
-  }, [onClose, onOpenSuccessModal, productsCart, reset, setIsWorking, wallpapersCart])
+  }, [onClose, onOpenSuccessModal, productsCart, reset, resetCart, setIsWorking, wallpapersCart])
 
   return (
     <Modal

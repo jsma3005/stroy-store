@@ -67,7 +67,7 @@ export const Footer = () => {
                 href="https://2gis.kg/bishkek"
               >
                 <FaLocationDot />
-                <span>г. Ощ, ул. Курманжан датка 421</span>
+                <span>г. Ош, ул. Курманжан датка 421</span>
               </a>
             </li>
           </ul>

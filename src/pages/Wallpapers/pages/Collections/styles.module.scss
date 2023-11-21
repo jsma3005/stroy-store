@@ -8,7 +8,7 @@
 
   .collectionContainer {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-auto-rows: 25rem;
     gap: 1rem;
     position: relative;
@@ -54,8 +54,8 @@
       }
     }
 
-    .topCard {
-      top: -2rem;
-    }
+    // .topCard {
+    //   top: -2rem;
+    // }
   }
 }

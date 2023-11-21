@@ -85,7 +85,7 @@ export const SalesSection = () => {
 
                       <div>
                         <p className={cls.price}>
-                          <span>{(Number(product.price) - sale.interest_amount)} СОМ</span>
+                          <span>{sale.interest_amount} СОМ</span>
                           <span>{product.price} CОМ</span>
                         </p>
 

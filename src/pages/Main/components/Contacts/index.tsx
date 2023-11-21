@@ -1,5 +1,5 @@
 import React from 'react'
-import { Map, YMaps } from 'react-yandex-maps'
+import { Map, Placemark, YMaps } from 'react-yandex-maps'
 
 import { PageLayout } from 'elements/layouts/PageLayout'
 
@@ -13,9 +13,12 @@ export const Contacts = () => {
       <div className={cls.mapContainer}>
         <YMaps>
           <Map
-            defaultState={{ center: [40.529016, 72.797207], zoom: 16 }}
+            defaultState={{ center: [40.543983, 72.786113], zoom: 18 }}
             className={cls.map}
-          />
+          >
+            <Placemark geometry={[40.543914, 72.785915]} />
+          </Map>
+
         </YMaps>
       </div>
 

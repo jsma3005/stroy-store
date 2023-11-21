@@ -67,7 +67,7 @@ export const Footer = () => {
                 href="https://2gis.kg/bishkek"
               >
                 <FaLocationDot />
-                <span>Москва, ул. Камушкина 10</span>
+                <span>г. Ощ, ул. Курманжан датка 421</span>
               </a>
             </li>
           </ul>

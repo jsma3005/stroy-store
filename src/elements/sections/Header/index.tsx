@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Link as ScrollLink } from 'react-scroll'
 
+import Logo from 'assets/logo.png'
 import { axiosRequest } from 'configs/api'
 import { PiShoppingCartLight } from 'react-icons/pi'
 import { CategoryTypes } from 'types/categories'
@@ -42,7 +43,7 @@ export const Header = () => {
         className={cls.logo}
       >
         <img
-          src="assets/logo.png"
+          src={Logo}
           alt="logo"
         />
       </Link>

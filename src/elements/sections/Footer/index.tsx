@@ -1,6 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import { ReactComponent as FacebookIcon } from 'assets/icons/facebook.svg'
+import { ReactComponent as InstagramIcon } from 'assets/icons/instagram.svg'
+import { ReactComponent as WhatsAppIcon } from 'assets/icons/whatsapp.svg'
+import LogoWhite from 'assets/logo-white.png'
+
 import cls from './styles.module.scss'
 
 export const Footer = () => {
@@ -18,7 +23,7 @@ export const Footer = () => {
             className={cls.logo}
           >
             <img
-              src="assets/logo-white.png"
+              src={LogoWhite}
               alt="logo"
             />
           </Link>
@@ -50,7 +55,7 @@ export const Footer = () => {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <img src="assets/icons/instagram.svg" alt="Instagram" />
+                  <InstagramIcon />
                 </a>
               </li>
               <li>
@@ -59,16 +64,16 @@ export const Footer = () => {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <img src="assets/icons/facebook.svg" alt="Facebook" />
+                  <FacebookIcon />
                 </a>
               </li>
               <li>
                 <a
-                  href="wa.link/m1l27y"
+                  href="https://wa.link/m1l27y"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <img src="assets/icons/whatsapp.svg" alt="WhatsApp" />
+                  <WhatsAppIcon />
                 </a>
               </li>
             </ul>

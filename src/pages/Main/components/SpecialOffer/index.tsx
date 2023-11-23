@@ -11,7 +11,7 @@ export const SpecialOffer = () => {
       <div
         className={cls.bgContent}
         style={{
-          backgroundImage: 'url(\'/assets/spec-offer-bg.png\')',
+          backgroundImage: 'url(\'/assets/spec-offer-bg.jpg\')',
         }}
       >
         <div className={cls.row}>

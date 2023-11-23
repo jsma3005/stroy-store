@@ -1,15 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Link as ScrollLink } from 'react-scroll'
-
-import { FaLocationDot } from 'react-icons/fa6'
-import { FiMail } from 'react-icons/fi'
 
 import cls from './styles.module.scss'
 
 export const Footer = () => {
   return (
-    <div className={cls.root}>
+    <div
+      className={cls.root}
+      style={{
+        backgroundImage: 'url(\'/assets/footerBg.jpg\')',
+      }}
+    >
       <div className={cls.footer}>
         <div className={cls.content}>
           <Link
@@ -22,56 +23,60 @@ export const Footer = () => {
             />
           </Link>
 
-          <ul className={cls.categoriesList}>
-            <li>
-              <Link
-                to="/cart"
-              >
-                Корзина
-              </Link>
-            </li>
+          <div className={cls.info}>
+            <p className={cls.contactsTitle}>КОНТАКТЫ</p>
 
-            <li>
-              <ScrollLink
-                to="sale"
-                spy={true}
-                smooth={true}
-                offset={-70}
-                duration={500}
-              >
-                Каталог
-              </ScrollLink>
-            </li>
-
-            <li>
-              <Link
-                to="/"
-              >
-                Контакты
-              </Link>
-            </li>
-          </ul>
-
-          <ul className={cls.contactsList}>
-            <li>
+            <p className={cls.contactsAddress}>
               <a
-                href="mailto:example@example.com"
-              >
-                <FiMail />
-                <span>info@stroykastore.ru</span>
-              </a>
-            </li>
+                href="https://go.2gis.com/c80ka"
+                target="_blank"
+                rel="noreferrer"
+              >Кыргызстан, г.Ош, ул. Курманжан датка 421</a>
+            </p>
 
-            <li>
-              <a
-                href="https://2gis.kg/bishkek"
-              >
-                <FaLocationDot />
-                <span>г. Ош, ул. Курманжан датка 421</span>
-              </a>
-            </li>
-          </ul>
+            <ul className={cls.phoneNumbers}>
+              <li>
+                <a href="tel:+996998011010">+996 998 01 10 10</a>
+              </li>
+              <li>
+                <a href="tel:+996708011010">+996 708 01 10 10</a>
+              </li>
+            </ul>
 
+            <ul className={cls.socials}>
+              <li>
+                <a
+                  href="https://www.instagram.com/fantasia_osh/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src="assets/icons/instagram.svg" alt="Instagram" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.facebook.com/profile.php?id=61551493614512"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src="assets/icons/facebook.svg" alt="Facebook" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="wa.link/m1l27y"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src="assets/icons/whatsapp.svg" alt="WhatsApp" />
+                </a>
+              </li>
+            </ul>
+
+            <p className={cls.email}>
+              <a href="mailto:fantasiadesign.kg@gmail.com">fantasiadesign.kg@gmail.com</a>
+            </p>
+          </div>
         </div>
       </div>
     </div>

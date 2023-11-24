@@ -51,8 +51,6 @@
         }
       }
 
-
-
       .actions {
         display: flex;
 
@@ -89,8 +87,6 @@
             text-align: center;
           }
         }
-
-        
       }
     }
   }
@@ -116,5 +112,144 @@
       }
     }
 
+  }
+}
+
+// Tablet
+@media only screen and (width <= 1024px) {
+  .root {
+    padding: 0;
+
+    .productCard {
+      height: 300px;
+
+      .images {
+        .swiperSlide {
+          height: 298px;
+        }
+      }
+
+      .info {
+        padding: 1rem;
+
+        .actions {
+          .toCartBtn {
+            width: 100%;
+            margin-right: .5rem;
+          }
+  
+          .cartSum {
+            button {
+              width: 40px;
+              height: 40px;
+              font-size: 1.2rem;
+            }
+  
+            span {
+              width: 2.5rem;
+              font-size: 1.2rem;
+            }
+          }
+  
+          
+        }
+
+        .title {
+          font-size: 1.8rem;
+          line-height: 1.2;
+        }
+
+        .extraInfo {
+          .price {
+            font-size: 1.2rem;
+            margin-bottom: .5rem;
+          }
+        }
+      }
+    }
+
+    .descriptionCard {
+      padding: 2rem;
+  
+      .content {  
+        .title {
+          font-size: 1.8rem;
+          margin-bottom: 1rem;
+        }
+    
+      }
+  
+    }
+  }
+}
+
+@media only screen and (width <= 750px) { 
+  .root {
+    .productCard {
+      .info {
+        .title {
+          font-size: 1.5rem;
+          height: 100px;
+          overflow: auto;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (width <= 640px) { 
+  .root {
+    .productCard {
+      text-align: center;
+      flex-direction: column;
+      height: 100%;
+      margin-bottom: 1rem;
+
+      .images {
+        width: 100%;
+
+        .swiperSlide {
+          height: 250px;
+        }
+      }
+
+      .info {
+        width: 100%;
+
+        .actions {
+          margin-top: 1rem;
+        }
+
+        .title {
+          font-size: 1.2rem;
+          height: 100%;
+        }
+      }
+    }
+
+    .descriptionCard {
+      padding: 1.5rem;
+  
+      .content {
+        .title {
+          font-size: 1.4rem;
+          margin-bottom: .5rem;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (width <= 450px) { 
+  .root {
+    .productCard {
+      .info {
+        .extraInfo {
+          .price {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
   }
 }

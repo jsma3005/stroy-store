@@ -7,24 +7,24 @@
   border-bottom: 1px solid #E8E9EA;
   border-top: 1px solid #E8E9EA;
   max-width: 1536px;
+  gap: 1rem;
 
   .logo {
-    width: 10%;
+    min-width: 6rem;
+    max-width: 8rem;
 
     img {
-      width: 8rem;
+      width: 100%;
     }
   }
 
   .categories {
     text-align: center;
     width: 80%;
-  
-    .logo {
-      img {
-        width: 8rem;
-      }
-    }
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
   
     .cart {
       display: flex;
@@ -65,3 +65,18 @@
   }
 }
 
+
+
+// Tablet
+@media only screen and (width >= 640px) and (width <= 1024px) {
+  .root {
+    padding: 1.25rem 2rem;
+  }
+}
+
+// Mobile
+@media only screen and (width >= 320px) and (width < 640px) {
+  .root {
+    padding: 1.25rem 2rem;
+  } 
+}

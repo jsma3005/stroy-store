@@ -1,0 +1,70 @@
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 2rem;
+  position: relative;
+  border-bottom: 1px solid #E8E9EA;
+  border-top: 1px solid #E8E9EA;
+
+  .logo {
+    min-width: 4rem;
+    max-width: 6rem;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .menuBtn {
+    width: 25px;
+    height: 25px;
+    color: #000;
+  }
+
+  .menu {
+    padding: 1.25rem 2rem;
+    width: 70%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    z-index: -1;
+    transition: .4s;
+
+    .header {
+      display: flex;
+      justify-content: right;
+
+      .closeIcon {
+        width: 25px;
+        height: 25px;
+        color: #000;
+      }
+    }
+
+    .categoriesList {
+      text-align: center;
+      margin-top: 1rem;
+
+      li {
+        font-size: 1rem;
+
+        a {
+          display: block;
+        }
+
+        &:not(:last-child) {
+          margin-bottom: .5rem;
+        }
+      }
+    }
+  }
+}
+
+
+.isOpened {
+  right: 0 !important;
+  z-index: 3 !important;
+  background-color: #fff !important;
+}

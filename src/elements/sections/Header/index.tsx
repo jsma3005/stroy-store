@@ -1,4 +1,5 @@
 import React from 'react'
+import { useMediaQuery } from 'react-responsive'
 import { Link, useLocation } from 'react-router-dom'
 import { Link as ScrollLink } from 'react-scroll'
 
@@ -8,11 +9,16 @@ import { PiShoppingCartLight } from 'react-icons/pi'
 import { CategoryTypes } from 'types/categories'
 
 import { CategoriesSkeleton } from './components/CategoriesSkeleton'
+import { MobileHeader } from './components/MobileHeader'
 import cls from './styles.module.scss'
 
 export const Header = () => {
   const [isLoading, setIsLoading] = React.useState(false)
   const [categories, setCategories] = React.useState<CategoryTypes.Raw[] | null>(null)
+
+  const isMobileScreen = useMediaQuery({
+    query: '(min-width: 320px) and (max-width: 640px)',
+  })
 
   const location = useLocation()
 
@@ -35,6 +41,8 @@ export const Header = () => {
   React.useEffect(() => {
     getCategories()
   }, [getCategories])
+
+  if (isMobileScreen) return <MobileHeader categories={categories} />
 
   return (
     <div className={cls.root}>

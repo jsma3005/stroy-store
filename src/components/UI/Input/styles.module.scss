@@ -51,3 +51,20 @@
   }
 }
 
+
+
+@media only screen and (width <= 640px) { 
+  .container {
+    .label {
+      font-size: 14px;
+    }
+
+    input {
+      font-size: 1rem;
+    }
+
+    .errorMessage {
+      font-size: 12px;
+    }
+  }
+}

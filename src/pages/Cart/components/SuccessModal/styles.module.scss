@@ -21,7 +21,7 @@
     }
 
     h2 {
-      font-size: 48px;
+      font-size: 3rem;
       font-weight: 700;
       color: #2F323A;
       margin-bottom: .5rem;
@@ -42,4 +42,41 @@
     }
   }
 
+}
+
+@media only screen and (width <= 640px) { 
+  .modal {
+    padding: 1.5rem;
+    max-width: 80% !important;
+
+    .modalBody {
+      h2 {
+        font-size: 1.8rem;
+      }
+    }
+  }
+}
+
+
+@media only screen and (width <= 550px) { 
+  .modal {
+    padding: 1;
+    max-width: 95% !important;
+
+    .modalBody {
+      h2 {
+        font-size: 1.4rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+@media only screen and (width <= 380px) { 
+  .modal {
+    max-width: 100% !important;
+  }
 }

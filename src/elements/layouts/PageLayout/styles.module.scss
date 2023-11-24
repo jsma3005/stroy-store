@@ -3,3 +3,17 @@
   margin: auto;
   max-width: 1536px;
 }
+
+// Tablet
+@media only screen and (width >= 640px) and (width <= 1024px) {
+  .root {
+    padding: 2rem;
+  }
+}
+
+// Mobile
+@media only screen and (width >= 320px) and (width <= 640px) {
+  .root {
+    padding: 1rem;
+  }
+}

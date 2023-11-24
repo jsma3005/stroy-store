@@ -12,3 +12,9 @@
     cursor: no-drop;
   }
 }
+
+@media only screen and (width <= 640px) {
+  .root {
+    padding: .5rem 1.25rem;
+  }
+}

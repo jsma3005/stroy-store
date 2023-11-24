@@ -42,7 +42,14 @@ export const Header = () => {
     getCategories()
   }, [getCategories])
 
-  if (isMobileScreen) return <MobileHeader categories={categories} />
+  if (isMobileScreen) {
+    return (
+      <MobileHeader
+        categories={categories}
+        isCategoriesLoading={isLoading}
+      />
+    )
+  }
 
   return (
     <div

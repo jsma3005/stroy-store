@@ -8,13 +8,19 @@ import cn from 'classnames'
 import { IoIosMenu, IoMdClose } from 'react-icons/io'
 import { CategoryTypes } from 'types/categories'
 
+import { MobileCategoriesSkeleton } from '../MobileCategoriesSkeleton'
+
 import cls from './styles.module.scss'
 
 interface Props {
   categories: CategoryTypes.Raw[] | null
+  isCategoriesLoading: boolean
 }
 
-export const MobileHeader = ({ categories }: Props) => {
+export const MobileHeader = ({
+  categories,
+  isCategoriesLoading,
+}: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
@@ -46,40 +52,50 @@ export const MobileHeader = ({ categories }: Props) => {
         </div>
 
         <ul className={cls.categoriesList}>
-          <li onClick={onClose}>
-            {
-              location.pathname === '/'
-                ? (
-                  <ScrollLink
-                    to="sale"
-                    spy={true}
-                    smooth={true}
-                    offset={-70}
-                    duration={500}
-                  >Акции</ScrollLink>
-                )
-                : (
-                  <Link to="/">Акции</Link>
-                )
-            }
-          </li>
-          <li onClick={onClose}>
-            <Link
-              to="/wallpapers"
-            >Обои</Link>
-          </li>
           {
-            categories?.map(({ id, title }) => (
-              <li
-                key={id}
-                onClick={onClose}
-              >
-                <Link
-                  key={id}
-                  to={'/categories/' + id}
-                >{title}</Link>
-              </li>
-            ))
+            isCategoriesLoading
+              ? (
+                <MobileCategoriesSkeleton />
+              )
+              : (
+                <>
+                  <li onClick={onClose}>
+                    {
+                      location.pathname === '/'
+                        ? (
+                          <ScrollLink
+                            to="sale"
+                            spy={true}
+                            smooth={true}
+                            offset={-70}
+                            duration={500}
+                          >Акции</ScrollLink>
+                        )
+                        : (
+                          <Link to="/">Акции</Link>
+                        )
+                    }
+                  </li>
+                  <li onClick={onClose}>
+                    <Link
+                      to="/wallpapers"
+                    >Обои</Link>
+                  </li>
+                  {
+                    categories?.map(({ id, title }) => (
+                      <li
+                        key={id}
+                        onClick={onClose}
+                      >
+                        <Link
+                          key={id}
+                          to={'/categories/' + id}
+                        >{title}</Link>
+                      </li>
+                    ))
+                  }
+                </>
+              )
           }
         </ul>
       </div>

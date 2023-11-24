@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { Link as ScrollLink } from 'react-scroll'
 
 import { ReactComponent as FacebookIcon } from 'assets/icons/facebook.svg'
 import { ReactComponent as InstagramIcon } from 'assets/icons/instagram.svg'
@@ -18,15 +19,35 @@ export const Footer = () => {
     >
       <div className={cls.footer}>
         <div className={cls.content}>
-          <Link
-            to="/"
-            className={cls.logo}
-          >
-            <img
-              src={LogoWhite}
-              alt="logo"
-            />
-          </Link>
+          {
+            location.pathname === '/'
+              ? (
+                <ScrollLink
+                  to="header"
+                  spy={true}
+                  smooth={true}
+                  offset={-70}
+                  duration={500}
+                  className={cls.logo}
+                >
+                  <img
+                    src={LogoWhite}
+                    alt="logo"
+                  />
+                </ScrollLink>
+              )
+              : (
+                <Link
+                  to="/"
+                  className={cls.logo}
+                >
+                  <img
+                    src={LogoWhite}
+                    alt="logo"
+                  />
+                </Link>
+              )
+          }
 
           <div className={cls.info}>
             <p className={cls.contactsTitle}>КОНТАКТЫ</p>

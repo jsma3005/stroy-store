@@ -45,7 +45,10 @@ export const Header = () => {
   if (isMobileScreen) return <MobileHeader categories={categories} />
 
   return (
-    <div className={cls.root}>
+    <div
+      className={cls.root}
+      id="header"
+    >
       <Link
         to="/"
         className={cls.logo}

@@ -18,7 +18,10 @@ export const MobileHeader = ({ categories }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
-    <div className={cls.root}>
+    <div
+      className={cls.root}
+      id="header"
+    >
       <Link
         to="/"
         className={cls.logo}

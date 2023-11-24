@@ -3,6 +3,8 @@
   background: #2F323A;
   color: #E8E9EA;
   background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
   min-height: 350px;
   display: flex;
   flex-direction: column;
@@ -18,15 +20,22 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 1rem;
 
       .logo {
+        width: 100%;
+        max-width: 11.25rem;
+        cursor: pointer;
+
         img {
-          width: 180px;
+          width: 100%;
           margin-bottom: 1rem;
         }
       }
 
       .info {
+        text-align: right;
+
         .contactsTitle {
           font-size: 1.5rem;
           font-weight: 600;
@@ -55,6 +64,7 @@
         .socials {
           display: flex;
           align-items: center;
+          justify-content: flex-end;
           margin-bottom: 2rem;
           
           li {
@@ -74,6 +84,119 @@
         .email {
           font-size: 1.2rem;
           font-weight: 600;
+        }
+      }
+    }
+  }
+}
+
+// Tablet
+@media only screen and (width <= 1024px) {
+  .root {
+    background-attachment: initial;
+
+    .footer {
+      padding: 2rem;
+
+      .content {
+        .logo {
+          max-width: 9rem;
+        }
+
+        .info {
+          .contactsTitle {
+            font-size: 1.2rem;
+          }
+  
+          .contactsAddress {
+            font-size: 1rem;
+          }
+  
+          .phoneNumbers {  
+            li {
+              font-size: .8rem;
+            }
+          }
+  
+          .socials {            
+            li {
+              a {
+                svg {
+                  width: 30px;
+                  height: 30px;
+                }
+              }
+            }
+          }
+  
+          .email {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (width <= 640px) {
+  .root {
+    .footer {
+      padding: 2rem 1rem;
+
+      .content {
+        flex-direction: column;
+
+        .info {
+          text-align: center;
+
+          .socials {
+            justify-content: center;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (width <= 450px) {
+  .root {
+    .footer {
+      .content {
+        gap: .5rem;
+
+        .logo {
+          max-width: 7rem !important;
+        }
+
+        .info {
+          .contactsTitle {
+            font-size: 1rem;
+          }
+  
+          .contactsAddress {
+            font-size: .8rem;
+          }
+  
+          .phoneNumbers {  
+            li {
+              font-size: .6rem;
+            }
+          }
+  
+          .socials {            
+            li {
+              a {
+                svg {
+                  width: 25px;
+                  height: 25px;
+                }
+              }
+            }
+          }
+  
+          .email {
+            font-size: .8rem;
+          }
         }
       }
     }

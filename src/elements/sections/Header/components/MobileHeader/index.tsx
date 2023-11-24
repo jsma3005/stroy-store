@@ -6,6 +6,7 @@ import { useDisclosure } from '@chakra-ui/react'
 import Logo from 'assets/logo.png'
 import cn from 'classnames'
 import { IoIosMenu, IoMdClose } from 'react-icons/io'
+import { PiShoppingCartLight } from 'react-icons/pi'
 import { CategoryTypes } from 'types/categories'
 
 import { MobileCategoriesSkeleton } from '../MobileCategoriesSkeleton'
@@ -94,6 +95,20 @@ export const MobileHeader = ({
                       </li>
                     ))
                   }
+
+                  <li
+                    className={cls.cart}
+                    onClick={onClose}
+                  >
+                    <Link
+                      to="/cart"
+                    >
+                      <PiShoppingCartLight
+                        color="#5D6066"
+                      />
+                      <span>Корзина</span>
+                    </Link>
+                  </li>
                 </>
               )
           }

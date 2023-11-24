@@ -58,6 +58,21 @@
           margin-bottom: .5rem;
         }
       }
+
+      .cart {
+        a {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          svg {
+            margin-right: .5rem;
+            width: 1rem;
+            height: 1rem;
+          }
+        }
+      }
     }
   }
 }

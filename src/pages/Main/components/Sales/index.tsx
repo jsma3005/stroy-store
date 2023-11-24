@@ -83,7 +83,7 @@ export const SalesSection = () => {
                     <div className={cls.productInfo}>
                       <Link to={`/products/${product.id}`} className={cls.productTitle}>{product.title}</Link>
 
-                      <div>
+                      <div className={cls.productActions}>
                         <p className={cls.price}>
                           <span>{sale.interest_amount} СОМ</span>
                           <span>{product.price} CОМ</span>

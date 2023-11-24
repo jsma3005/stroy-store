@@ -1,7 +1,7 @@
 .root {
   .title {
     font-weight: 700;
-    font-size: 48px;
+    font-size: 2.125rem;
     color: #171B24;
     margin-bottom: 2.5rem;
   }
@@ -23,5 +23,63 @@
       margin: 2rem 0;
     }
   }
+}
 
+
+// Tablet
+@media only screen and (width <= 1024px) {
+  .root {
+    .title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .companyInfo {
+      p {
+        font-size: 1.8rem;
+        margin: 1.8rem 0;
+      }
+    }
+  }
+}
+
+// Mobile
+
+@media only screen and (width <= 640px) {
+  .root {
+    .title {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .mapContainer {
+      margin-bottom: 2rem;
+  
+      .map {
+        height: 300px;
+      }
+    }
+
+    .companyInfo {
+      p {
+        font-size: 1.5rem;
+        margin: 1.5rem 0;
+      }
+    }
+  }
+}
+
+@media only screen and (width <= 450px) {
+  .root {
+    .title {
+      font-size: 1.8rem;
+    }
+
+    .companyInfo {
+      p {
+        font-size: 1.3rem;
+        margin: 1.3rem 0;
+      }
+    }
+  }
 }

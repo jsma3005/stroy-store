@@ -79,7 +79,7 @@ export const CartPage = () => {
           backgroundImage: 'url(\'/assets/cart-bg.png\')',
         }}
       >
-        <h1>Корзина</h1>
+        <h1 className={cls.title}>Корзина</h1>
       </div>
 
       <div className={cls.cartContainer}>

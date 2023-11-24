@@ -1,6 +1,6 @@
 .root {
   .title {
-    font-size: 48px;
+    font-size: 3rem;
     font-weight: 700;
     color: #171B24;
     margin-bottom: 2.5rem;
@@ -76,6 +76,66 @@
           }
         }
       }
+    }
+  }
+}
+
+// Tablet
+@media only screen and (width <= 1024px) {
+  .root {
+    .title {
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .productContainer {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+
+      .product {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+
+        .productImg {
+          width: 100%;
+          height: 250px;
+
+          img {
+            height: inherit;
+          }
+        }
+
+        .productInfo {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+}
+
+
+@media only screen and (width <= 640px) {
+  .root {
+    .title {
+      margin-bottom: 1rem;
+    }
+
+    .productContainer {
+      gap: .5rem;
+
+      .product {
+        min-height: 410px;
+        text-align: center;
+      }
+    }
+  }
+}
+
+@media only screen and (width <= 500px) {
+  .root {
+    .productContainer {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
     }
   }
 }

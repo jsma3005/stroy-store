@@ -1,4 +1,5 @@
 import React from 'react'
+import { Gallery, Item } from 'react-photoswipe-gallery'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { Spinner } from '@chakra-ui/react'
@@ -121,10 +122,23 @@ export const Wallpaper = () => {
                         key={img.id}
                         className={cls.swiperSlide}
                       >
-                        <img
-                          src={img.image}
-                          alt="product image"
-                        />
+                        <Gallery>
+                          <Item
+                            original={img.image}
+                            thumbnail={img.image}
+                            width="1024"
+                            height="768"
+                          >
+                            {({ ref, open }) => (
+                              <img
+                                ref={ref}
+                                onClick={open}
+                                src={img.image}
+                                alt="product image"
+                              />
+                            )}
+                          </Item>
+                        </Gallery>
                       </SwiperSlide>
                     ))
                   }

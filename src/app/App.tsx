@@ -12,6 +12,7 @@ import { WallpapersPage } from 'pages/Wallpapers'
 import { cartState } from 'state/cart'
 import 'swiper/css'
 import 'swiper/css/navigation'
+import 'photoswipe/dist/photoswipe.css'
 
 const App = () => {
   React.useEffect(() => {

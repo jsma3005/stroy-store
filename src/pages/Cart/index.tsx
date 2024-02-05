@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { useDisclosure } from '@chakra-ui/react'
 import { Button } from 'components/UI/Button'
@@ -27,6 +27,8 @@ export const CartPage = () => {
       resetCart,
     },
   } = useCart()
+
+  const navigate = useNavigate()
 
   const [isWorking, setIsWorking] = React.useState<boolean | null>(null)
 
@@ -127,6 +129,8 @@ export const CartPage = () => {
                   <img
                     src={product.images[0]?.image || 'https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png'}
                     alt={product.title}
+                    onClick={() => navigate(`/products/${product.id}`)}
+                    className="cursor-pointer"
                   />
 
                   {
@@ -195,6 +199,8 @@ export const CartPage = () => {
                   <img
                     src={wallpaper.images[0]?.image || 'https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png'}
                     alt={wallpaper.title}
+                    className="cursor-pointer"
+                    onClick={() => navigate(`/wallpapers/${wallpaper.collection.brand}/${wallpaper.collection.id}/${wallpaper.id}`)}
                   />
                 </div>
 
